@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="数据库的选择、创建、删除和更改1.USE 用于选定一个默认数据库CREATE DATABASE  创建数据库 DRPO DATABASE 删除数据库 ALTER DATABASE 更改省局库的全局属性 2.创建数据库时，有几个可选子句CREATE DATABASE [IF NOT EXISTS] db_name [CHARACTER SET charset] [COLLATE collation]">
+<meta name="description" content="Containers–Operating System Level Virtualization存在三种部署模式：    &amp;emsp;1.本地主机上的部署   &amp;emsp;2.虚拟机上的部署   &amp;emsp;3.容器层面的部署    &amp;emsp;&amp;emsp;虚拟机层面的部署和容器部署的区别：虚拟机层面的部署首先需要安装系统，之后在系统上进行应用的部署；容器部署是将容器直接构建到宿主机上面（如下图）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《MySQL技术内幕》__01">
-<meta property="og:url" content="http://yoursite.com/2018/04/14/《MySQL技术内幕》/index.html">
+<meta property="og:title" content="Containers、Docker、Kubernetes初识">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/Containers、Docker、Kubernetes初识/index.html">
 <meta property="og:site_name" content="雪梨酒色的托帕石">
-<meta property="og:description" content="数据库的选择、创建、删除和更改1.USE 用于选定一个默认数据库CREATE DATABASE  创建数据库 DRPO DATABASE 删除数据库 ALTER DATABASE 更改省局库的全局属性 2.创建数据库时，有几个可选子句CREATE DATABASE [IF NOT EXISTS] db_name [CHARACTER SET charset] [COLLATE collation]">
+<meta property="og:description" content="Containers–Operating System Level Virtualization存在三种部署模式：    &amp;emsp;1.本地主机上的部署   &amp;emsp;2.虚拟机上的部署   &amp;emsp;3.容器层面的部署    &amp;emsp;&amp;emsp;虚拟机层面的部署和容器部署的区别：虚拟机层面的部署首先需要安装系统，之后在系统上进行应用的部署；容器部署是将容器直接构建到宿主机上面（如下图）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-14T14:01:26.242Z">
+<meta property="og:image" content="http://images/pasted-0.png/">
+<meta property="og:updated_time" content="2018-04-17T08:34:15.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《MySQL技术内幕》__01">
-<meta name="twitter:description" content="数据库的选择、创建、删除和更改1.USE 用于选定一个默认数据库CREATE DATABASE  创建数据库 DRPO DATABASE 删除数据库 ALTER DATABASE 更改省局库的全局属性 2.创建数据库时，有几个可选子句CREATE DATABASE [IF NOT EXISTS] db_name [CHARACTER SET charset] [COLLATE collation]">
+<meta name="twitter:title" content="Containers、Docker、Kubernetes初识">
+<meta name="twitter:description" content="Containers–Operating System Level Virtualization存在三种部署模式：    &amp;emsp;1.本地主机上的部署   &amp;emsp;2.虚拟机上的部署   &amp;emsp;3.容器层面的部署    &amp;emsp;&amp;emsp;虚拟机层面的部署和容器部署的区别：虚拟机层面的部署首先需要安装系统，之后在系统上进行应用的部署；容器部署是将容器直接构建到宿主机上面（如下图）">
+<meta name="twitter:image" content="http://images/pasted-0.png/">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/14/《MySQL技术内幕》/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/Containers、Docker、Kubernetes初识/"/>
 
 
 
 
 
-  <title>《MySQL技术内幕》__01 | 雪梨酒色的托帕石</title>
+  <title>Containers、Docker、Kubernetes初识 | 雪梨酒色的托帕石</title>
   
 
 
@@ -293,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/《MySQL技术内幕》/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/Containers、Docker、Kubernetes初识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BruceKun">
@@ -310,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《MySQL技术内幕》__01</h1>
+          <h1 class="post-title" itemprop="name headline">Containers、Docker、Kubernetes初识</h1>
         
 
         <div class="post-meta">
@@ -322,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T21:42:02+08:00">
-                2018-04-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T16:11:37+08:00">
+                2018-04-17
               </time>
             
 
@@ -360,26 +362,43 @@
       
 
       
-        <h2 id="数据库的选择、创建、删除和更改"><a href="#数据库的选择、创建、删除和更改" class="headerlink" title="数据库的选择、创建、删除和更改"></a>数据库的选择、创建、删除和更改</h2><h5 id="1-USE-用于选定一个默认数据库"><a href="#1-USE-用于选定一个默认数据库" class="headerlink" title="1.USE 用于选定一个默认数据库"></a>1.USE 用于选定一个默认数据库</h5><pre><code>CREATE DATABASE  创建数据库
-DRPO DATABASE 删除数据库
-ALTER DATABASE 更改省局库的全局属性
-</code></pre><h5 id="2-创建数据库时，有几个可选子句"><a href="#2-创建数据库时，有几个可选子句" class="headerlink" title="2.创建数据库时，有几个可选子句"></a>2.创建数据库时，有几个可选子句</h5><pre><code>CREATE DATABASE [IF NOT EXISTS] db_name [CHARACTER SET charset] [COLLATE collation]
-</code></pre><p>&emsp;&emsp;&emsp;如果创建一个已经存在的数据库，系统会报错，要避免这类错误，可以加上IF NOT EXISTS子句</p>
-<p>&emsp;&emsp;&emsp;CHARACTER SET charset 设置字符集</p>
-<p>&emsp;&emsp;&emsp;COLLATE collation 设置排序规则</p>
-<h5 id="3-删除数据库-DROP-DATABASE-db-name"><a href="#3-删除数据库-DROP-DATABASE-db-name" class="headerlink" title="3.删除数据库 DROP DATABASE db_name"></a>3.删除数据库 DROP DATABASE db_name</h5><p>&emsp;&emsp;&emsp;&emsp;一个数据库就是MySQL数据目录中的一个目录，这个目录主要用于存放对象</p>
-<p>&emsp;&emsp;&emsp;&emsp;如果DROP DATABASE语句执行失败，那么通常是因为那个数据库的目录里还包含有一些与数据库对象无关的文件</p>
-<h2 id="表的创建、删除、索引和更改"><a href="#表的创建、删除、索引和更改" class="headerlink" title="表的创建、删除、索引和更改"></a>表的创建、删除、索引和更改</h2><h4 id="1-表相关"><a href="#1-表相关" class="headerlink" title="1.表相关"></a>1.表相关</h4><pre><code>CREATE TABLE  创建表
-DROP TABLE  删除表
-ALTER TABLE  修改表结构
-</code></pre><h4 id="2-索引相关"><a href="#2-索引相关" class="headerlink" title="2.索引相关"></a>2.索引相关</h4><pre><code>CREATE INDEX 为已有的表添加索引 
-DROP INDEX 删除已有的表的索引
-</code></pre><h4 id="3-表的磁盘存储方式"><a href="#3-表的磁盘存储方式" class="headerlink" title="3.表的磁盘存储方式"></a>3.表的磁盘存储方式</h4><p>每次在创建表时，MySQL都会创建一个磁盘文件，用于保存该表的格式（表的定义），这个格式文件与表名相同，扩展名为.frm。</p>
-<p>服务器会在包含这个表的那个数据库所对应的数据库目录里，创建这个文件。</p>
-<p>对于某个给定的表，与之相关的所有文件都集中存放在包含这几个表的那个数据库所对应的目录里。</p>
-<h4 id="4-创建表"><a href="#4-创建表" class="headerlink" title="4.创建表"></a>4.创建表</h4><h6 id="1-表选项"><a href="#1-表选项" class="headerlink" title="1.表选项"></a>1.表选项</h6><pre><code>ENGINE=engine_name，可以为表指定要用的存储引擎 
-</code></pre><p>&emsp;&emsp;&emsp;1.如CREATE TABLE mytb1 (…) ENGINE=MyISAM<br>        <br>&emsp;&emsp;&emsp;2.与数据库类似，可使用CREATE TABLE IF NOT EXIST语句<br>        <br>&emsp;&emsp;&emsp;3.TEMPORARY表<br>                &emsp;&emsp;&emsp;&emsp;&emsp;CREATE TEMPORARY TABLE tb1_name …;</p>
-<p>创建临时表，在与服务器的会话终止时自动消失<br>TEMPORARY表只对创建该表的客户端可见，不同的客户端可以创建具有相同名字的TEMPORARY表<br>TEMPORARY表的名字可以与某个已有的永久表的相同。当有TEMPORARAY表存在时，那个同名的永久表会隐藏起来（无法访问）</p>
+        <h2 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a>Containers</h2><h4 id="–Operating-System-Level-Virtualization"><a href="#–Operating-System-Level-Virtualization" class="headerlink" title="–Operating System Level Virtualization"></a>–Operating System Level Virtualization</h4><p>存在三种部署模式：<br><br>    &emsp;1.本地主机上的部署<br><br>   &emsp;2.虚拟机上的部署<br><br>   &emsp;3.容器层面的部署<br></p>
+<p>   &emsp;&emsp;虚拟机层面的部署和容器部署的区别：虚拟机层面的部署首先需要安装系统，之后在系统上进行应用的部署；容器部署是将容器直接构建到宿主机上面（如下图）<br></p>
+<p><img src="\\images\pasted-0.png\" alt="upload successful"><br></p>
+<p>&emsp;&emsp;最新一代的Linux容器基于Linux cgroups和Linux namespaces<br><br>&emsp;&emsp;cgroups:cgroups是linux限制单个进程或多个进程所使用的资源的机制，可以对cpu、内存进行精细化控制<br><br>&emsp;&emsp;namespaces:Linux内核的名称空间隔离和虚拟化系统资源用来收集进程<br><br>&emsp;&emsp;namespaces下的一些参数：<br><br>&emsp;&emsp;&emsp;mnt：挂载点&emsp;pid:进程和它们的属性&emsp;net:一个完整的网络堆栈&emsp;</p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><h4 id="Containerized-Application-Deployment"><a href="#Containerized-Application-Deployment" class="headerlink" title="Containerized Application Deployment"></a>Containerized Application Deployment</h4><p>在理解Docker之前，需要了解一些基本问题。<br></p>
+<h6 id="一、环境配置的难题"><a href="#一、环境配置的难题" class="headerlink" title="一、环境配置的难题"></a>一、环境配置的难题</h6><p>软件开发最大的麻烦事之一，就是环境配置。用户计算机的环境都不相同，你怎么知道自家的软件，能在那些机器跑起来？</p>
+<p>用户必须保证两件事：操作系统的设置，各种库和组件的安装。只有它们都正确，软件才能运行。举例来说，安装一个 Python 应用，计算机必须有 Python 引擎，还必须有各种依赖，可能还要配置环境变量。</p>
+<p>如果某些老旧的模块与当前环境不兼容，那就麻烦了。开发者常常会说：”它在我的机器可以跑了”（It works on my machine），言下之意就是，其他机器很可能跑不了。</p>
+<p>环境配置如此麻烦，换一台机器，就要重来一次，旷日费时。很多人想到，能不能从根本上解决问题，软件可以带环境安装？也就是说，安装的时候，把原始环境一模一样地复制过来。</p>
+<h6 id="二、虚拟机"><a href="#二、虚拟机" class="headerlink" title="二、虚拟机"></a>二、虚拟机</h6><p>虚拟机（virtual machine）就是带环境安装的一种解决方案。它可以在一种操作系统里面运行另一种操作系统，比如在 Windows 系统里面运行 Linux 系统。应用程序对此毫无感知，因为虚拟机看上去跟真实系统一模一样，而对于底层系统来说，虚拟机就是一个普通文件，不需要了就删掉，对其他部分毫无影响。</p>
+<p>虽然用户可以通过虚拟机还原软件的原始环境。但是，这个方案有几个缺点。</p>
+<p>（1）资源占用多</p>
+<p>虚拟机会独占一部分内存和硬盘空间。它运行的时候，其他程序就不能使用这些资源了。哪怕虚拟机里面的应用程序，真正使用的内存只有 1MB，虚拟机依然需要几百 MB 的内存才能运行。</p>
+<p>（2）冗余步骤多</p>
+<p>虚拟机是完整的操作系统，一些系统级别的操作步骤，往往无法跳过，比如用户登录。</p>
+<p>（3）启动慢</p>
+<p>启动操作系统需要多久，启动虚拟机就需要多久。可能要等几分钟，应用程序才能真正运行。</p>
+<h6 id="三、Linux-容器"><a href="#三、Linux-容器" class="headerlink" title="三、Linux 容器"></a>三、Linux 容器</h6><p>由于虚拟机存在这些缺点，Linux 发展出了另一种虚拟化技术：Linux 容器（Linux Containers，缩写为 LXC）。</p>
+<p>Linux 容器不是模拟一个完整的操作系统，而是对进程进行隔离。或者说，在正常进程的外面套了一个保护层。对于容器里面的进程来说，它接触到的各种资源都是虚拟的，从而实现与底层系统的隔离。</p>
+<p>由于容器是进程级别的，相比虚拟机有很多优势。</p>
+<p>（1）启动快</p>
+<p>容器里面的应用，直接就是底层系统的一个进程，而不是虚拟机内部的进程。所以，启动容器相当于启动本机的一个进程，而不是启动一个操作系统，速度就快很多。</p>
+<p>（2）资源占用少</p>
+<p>容器只占用需要的资源，不占用那些没有用到的资源；虚拟机由于是完整的操作系统，不可避免要占用所有资源。另外，多个容器可以共享资源，虚拟机都是独享资源。</p>
+<p>（3）体积小</p>
+<p>容器只要包含用到的组件即可，而虚拟机是整个操作系统的打包，所以容器文件比虚拟机文件要小很多。</p>
+<p>总之，容器有点像轻量级的虚拟机，能够提供虚拟化的环境，但是成本开销小得多。</p>
+<h6 id="四、Docker-是什么？"><a href="#四、Docker-是什么？" class="headerlink" title="四、Docker 是什么？"></a>四、Docker 是什么？</h6><p>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
+<p>Docker 将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心环境问题。</p>
+<p>总体来说，Docker 的接口相当简单，用户可以方便地创建和使用容器，把自己的应用放入容器。容器还可以进行版本管理、复制、分享、修改，就像管理普通的代码一样。</p>
+<h6 id="五、Docker-的用途"><a href="#五、Docker-的用途" class="headerlink" title="五、Docker 的用途"></a>五、Docker 的用途</h6><p>Docker 的主要用途，目前有三大类。</p>
+<p>（1）提供一次性的环境。比如，本地测试他人的软件、持续集成的时候提供单元测试和构建的环境。</p>
+<p>（2）提供弹性的云服务。因为 Docker 容器可以随开随关，很适合动态扩容和缩容。</p>
+<p>（3）组建微服务架构。通过多个容器，一台机器可以跑多个服务，因此在本机就可以模拟出微服务架构。</p>
+<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><p>Kubernetes是容器集群管理系统，是一个开源的平台，可以实现容器集群的自动化部署、自动扩缩容、维护等功能。</p>
+<p>通过Kubernetes你可以：<br>•快速部署应用<br>•快速扩展应用<br>•无缝对接新的应用功能<br>•节省资源，优化硬件资源的使用</p>
+<p>我们的目标是促进完善组件和工具的生态系统，以减轻应用程序在公有云或私有云中运行的负担。</p>
 
       
     </div>
@@ -420,8 +439,8 @@ DROP INDEX 删除已有的表的索引
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/11/测试/" rel="next" title="正式启用的第一篇">
-                <i class="fa fa-chevron-left"></i> 正式启用的第一篇
+              <a href="/2018/04/14/《MySQL技术内幕》/" rel="next" title="《MySQL技术内幕》__01">
+                <i class="fa fa-chevron-left"></i> 《MySQL技术内幕》__01
               </a>
             
           </div>
@@ -429,10 +448,6 @@ DROP INDEX 删除已有的表的索引
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/17/Containers、Docker、Kubernetes初识/" rel="prev" title="Containers、Docker、Kubernetes初识">
-                Containers、Docker、Kubernetes初识 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -576,7 +591,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的选择、创建、删除和更改"><span class="nav-number">1.</span> <span class="nav-text">数据库的选择、创建、删除和更改</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-USE-用于选定一个默认数据库"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.USE 用于选定一个默认数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-创建数据库时，有几个可选子句"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.创建数据库时，有几个可选子句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-删除数据库-DROP-DATABASE-db-name"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3.删除数据库 DROP DATABASE db_name</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表的创建、删除、索引和更改"><span class="nav-number">2.</span> <span class="nav-text">表的创建、删除、索引和更改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-表相关"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.表相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-索引相关"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.索引相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-表的磁盘存储方式"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.表的磁盘存储方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建表"><span class="nav-number">2.0.4.</span> <span class="nav-text">4.创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-表选项"><span class="nav-number">2.0.4.0.1.</span> <span class="nav-text">1.表选项</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Containers"><span class="nav-number">1.</span> <span class="nav-text">Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#–Operating-System-Level-Virtualization"><span class="nav-number">1.0.1.</span> <span class="nav-text">–Operating System Level Virtualization</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Containerized-Application-Deployment"><span class="nav-number">2.0.1.</span> <span class="nav-text">Containerized Application Deployment</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#一、环境配置的难题"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">一、环境配置的难题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二、虚拟机"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">二、虚拟机</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三、Linux-容器"><span class="nav-number">2.0.1.0.3.</span> <span class="nav-text">三、Linux 容器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四、Docker-是什么？"><span class="nav-number">2.0.1.0.4.</span> <span class="nav-text">四、Docker 是什么？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#五、Docker-的用途"><span class="nav-number">2.0.1.0.5.</span> <span class="nav-text">五、Docker 的用途</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes"><span class="nav-number">3.</span> <span class="nav-text">Kubernetes</span></a></li></ol></div>
             
 
           </div>
