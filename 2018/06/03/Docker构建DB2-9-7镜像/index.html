@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="雪梨酒色的托帕石">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建 步骤：1.运行centos7.2.1511镜像（以特权模式运行，后续内核参数修改必需参数） doc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker构建DB2 9.7镜像">
+<meta property="og:url" content="http://yoursite.com/2018/06/03/Docker构建DB2-9-7镜像/index.html">
 <meta property="og:site_name" content="雪梨酒色的托帕石">
+<meta property="og:description" content="概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建 步骤：1.运行centos7.2.1511镜像（以特权模式运行，后续内核参数修改必需参数） doc">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-03T07:38:39.005Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="雪梨酒色的托帕石">
+<meta name="twitter:title" content="Docker构建DB2 9.7镜像">
+<meta name="twitter:description" content="概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建 步骤：1.运行centos7.2.1511镜像（以特权模式运行，后续内核参数修改必需参数） doc">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/03/Docker构建DB2-9-7镜像/"/>
 
 
 
 
 
-  <title>雪梨酒色的托帕石</title>
+  <title>Docker构建DB2 9.7镜像 | 雪梨酒色的托帕石</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/ClarkKun"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
@@ -275,9 +278,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -307,9 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/03/Docker构建DB2-9-7镜像/" itemprop="url">Docker构建DB2 9.7镜像</a></h1>
+          <h1 class="post-title" itemprop="name headline">Docker构建DB2 9.7镜像</h1>
         
 
         <div class="post-meta">
@@ -359,18 +360,141 @@
       
 
       
-        
-          
-          概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/03/Docker构建DB2-9-7镜像/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建</p>
+<p>步骤：</p><br>1.运行centos7.2.1511镜像（以特权模式运行，后续内核参数修改必需参数）<p></p>
+<pre><code>docker run -it --privileged centos:7.2.1511 /bin/bash
+</code></pre><p> 2.拷贝db2安装包进镜像中</p>
+<pre><code>docker cp v9.7_linuxx64_server.tar.gz 容器id:/usr/local
+</code></pre><p> 3.镜像内操作</p><p></p>
+<p> &emsp;&emsp;解压安装包</p>
+<pre><code>tar -xzvf v9.7_linuxx64_server.tar.gz
+</code></pre><p>&emsp;&emsp;进入解压后目录server</p>
+<pre><code>cd server
+</code></pre><p>&emsp;&emsp;检查安装环境</p>
+<pre><code>./db2prereqcheck
+</code></pre><p>&emsp;&emsp;环境缺失信息</p>
+<pre><code>* WARNING:
+*    The 32 bit library file libstdc++.so.6 is not found on the system.
+*    32-bit applications may be affected.  
+* ERROR:
+*    The required library file libaio.so.1 is not found on the system.
+*    Check the following web site for the up-to-date system requirements
+*    of IBM DB2 9.7
+* http://www.ibm.com/software/data/db2/udb/sysreqs.html
+* http://www.software.ibm.com/data/db2/linux/validate
+* 
+</code></pre><p>&emsp;&emsp;安装缺失的库文件</p>
+<pre><code>* yum install -y libstdc++
+* yum install -y libstdc++.so.6
+* yum install -y libaio
+</code></pre><p>安装db2</p>
+<pre><code>./db2_install
+
+要选择另一个目录用于安装吗？[yes/no]
+--输入no默认安装opt下，选择yes自己输入安装目录
+指定下列其中一个关键字以安装 DB2 产品
+--输入ESE
+ESE
+正在初始化 DB2 安装。……
+</code></pre><p>出错点，共48步，安装到第41步或第36步Hangup</p>
+<pre><code>Task #41 start
+Description: Starting DB2 Fault Monitor
+Estimated time 10 second(s)
+Hangup        
+PS：若47步左右出现一个小error可以忽略，不影响
+</code></pre><p>解决方法（修改内核参数）：</p>
+<pre><code>带--privileged运行容器，然后修改内核参数
+docker run -t -i --net=host -v /db2disk:/db2disk --privileged     centos_db2ese_v1.1 /bin/bash
+vi /etc/sysctl.conf
+kernel.shmmni = 65536
+kernel.shmmax = 274877906944
+kernel.shmall = 134217728
+kernel.sem = 250 1024000 32 65536
+kernel.msgmni = 262144
+kernel.msgmax = 65536
+kernel.msgmnb = 65536
+vm.dirty_background_ratio = 5
+vm.dirty_ratio= 10
+vm.overcommit_memory= 0
+vm.swappiness= 0 #如果是redhat，建议设置为5，
+否则很有可能在内存不足时OOM killer可能会杀掉DB2进程
+执行sysctl -p使参数在线生效
+执行ipcs -l查看操作系统内核参数设置
+
+------ Messages Limits --------
+max queues system wide = 668
+max size of message (bytes) = 8192
+default max size of queue (bytes) = 16384
+
+------ Shared Memory Limits --------
+max number of segments = 4096
+max seg size (kbytes) = 18014398509465599
+max total shared memory (kbytes) = 18014398442373116
+min seg size (bytes) = 1
+
+------ Semaphore Limits --------
+max number of arrays = 128
+max semaphores per array = 250
+max semaphores system wide = 32000
+max ops per semop call = 32
+semaphore max value = 32767
+</code></pre><p>查看注册信息，若出现试用期则安装成功</p>
+<pre><code>/opt/ibm/db2/V9.7/adm/db2licm -l        
+</code></pre><p>  安装 license</p>
+<p>db2licm -l命令可以查看到db2的license信息。可以找一个永久的license添加到db2数据库即可,把db2ese_c.lic放到一目录下：</p>
+<p>/opt/ibm/db2/V9.7/license/db2ese_c.lic，在/opt/ibm/db2/V9.7/adm/目录下执行：./db2licm -a /opt/ibm/db2/V9.7/license/db2ese_c.lic</p>
+<p>创建实例用户</p>
+<pre><code>groupadd -g 901 db2iadm1
+groupadd -g 902 db2fadm1
+groupadd -g 903 dasadm1
+useradd -g db2iadm1 -u 801 -d /home/db2inst1 -m  db2inst1
+useradd -g db2fadm1 -u 802 -d /home/db2fenc1 -m  db2fenc1
+useradd -g dasadm1 -u 803 -d /home/dasadm1 -m  dasusr1 
+</code></pre><p>为db2inst1创建密码</p>
+<pre><code>passwd db2inst1 
+</code></pre><p>创建实例</p>
+<pre><code>[root@server]#cd /opt/ibm/db2/V9.7/instance
+[root@instance]#./dascrt -u dasusr1 (创建DB2管理服务器)
+[root@instance]#./db2icrt -u db2inst1 db2inst1 (创建DB2实例)
+</code></pre><p>启动数据库实例</p>
+<pre><code>[root@localhost instance]# su - db2inst1
+[db2inst1@localhost ~]$ db2start
+</code></pre><p>创建一个用于连接的数据库</p>
+<pre><code>[db2inst1@localhost ~]$ db2 create database KHYX_YS using codeset GBK territory CN
+</code></pre><p>设置端口</p>
+<pre><code>查看db2是否开启tcp服务
+[root@localhost db2inst1]# db2set –all
+如果没有看到如下内容：DB2COMM=TCPIP，则需要对db2进行设置
+[root@localhost db2inst1]# db2set db2COMM=TCPIP
+查看是否配置db2 Tcp服务名称：
+[root@localhost db2inst1]# db2 get dbm cfg | grep -i SVCENAME
+如果SVCENAME 没有对应的值，则需要设置DB2的TCP服务名称或端口
+[root@localhost db2inst1]# db2 update dbm cfg using svcename db2AppName（自定义名称或端口号）
+查看/etc/services中是否已经将db2的tcp服务添加到系统服务中（端口号不需要这部）
+[root@localhost db2inst1]# cat /etc/services | grep db2
+如果没有找到任何内容或者没有db2AppName相关内容，则需要在services文件中加入db2AppName   50000/tcp，其中50000为 db2 tcp服务的端口号。使用vi /etc/services命令进入编辑器添加内容，然后ESC键 :wq保存退出编辑器。
+重启db2服务，查看db2 tcp服务监听的端口是否已经启用
+[db2inst1@localhost ~]$ db2 force application all（强制停止数据库）
+[db2inst1@localhost ~]$ db2start
+[db2inst1@localhost ~]$ netstat -na | grep 50000
+</code></pre><p>&emsp;&emsp;需要注意的是，构建好的镜像并没有前台程序运行，所以在docker run之后会立刻停止，而且在测试过程中，镜像启动后还需要做初始化工作（写初始化脚本）：将db2的存储文件夹/home做拷贝后命名为initdata文件夹放在根目录；登录db2inst1用户并启动db2数据库；经过一系列的测试，由于会将db2的存储目录/home挂载到宿主机，所以/home目录的用户权限需要改成db2inst1；还有就是建立一个前台运行的程序，将db2运行日志打印下来，db2初始化脚本如下</p>
+<pre><code>#!/bin/bash
+
+DIRECTORY=&apos;/home&apos;
+SOURCE=&apos;/inidata&apos;
+
+if [ &quot;`ls -A $DIRECTORY`&quot; = &quot;&quot; ]; then
+  echo &quot;copy initdata!&quot;
+  cp -rfp /initdata/* /home
+fi
+echo -e &quot;0&quot; `hostname` &quot;0&quot; &gt; /home/db2inst1/sqllib/db2nodes.cfg
+/opt/ibm/db2/V9.7/instance/db2iupdt db2inst1
+chown -R db2inst1 /home
+su -c &quot;db2start&quot; - db2inst1
+su db2inst1
+tail -f /home/db2inst1/sqllib/db2dump/db2diag.log
+</code></pre><p>再利用一个Dockerfile编写开放50000端口和运行初始化脚本的动作，进行再构建，这样子一个DB2镜像就构建好了。<br>PS：在运行过程中会出现一些小问题，一般是和linux内核参数相关，参数shmmax可能给的过大，需要进行调节后可以正常使用，还有shmall参数，应该是和数据库的存取速度相关，所以建议根据实际情况进行调节</p>
+
       
     </div>
     
@@ -387,138 +511,15 @@
 
 	<div>
 	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
+		<div>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/Containers、Docker、Kubernetes初识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/17/Containers、Docker、Kubernetes初识/" itemprop="url">Containers、Docker、Kubernetes初识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T16:11:37+08:00">
-                2018-04-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
         </div>
-      </header>
     
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Containers–Operating System Level Virtualization存在三种部署模式：    &emsp;1.本地主机上的部署   &emsp;2.虚拟机上的部署   &emsp;3.容器层面的部署
-   &emsp;&emsp;虚拟机层面的部署和容器部署的区别：虚拟机层
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/17/Containers、Docker、Kubernetes初识/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
+</div>
 	
 	</div>
 	
@@ -526,147 +527,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/《MySQL技术内幕》/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/14/《MySQL技术内幕》/" itemprop="url">《MySQL技术内幕》__01</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T21:42:02+08:00">
-                2018-04-14
-              </time>
+              <a href="/2018/04/17/Containers、Docker、Kubernetes初识/" rel="next" title="Containers、Docker、Kubernetes初识">
+                <i class="fa fa-chevron-left"></i> Containers、Docker、Kubernetes初识
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          数据库的选择、创建、删除和更改1.USE 用于选定一个默认数据库CREATE DATABASE  创建数据库
-DRPO DATABASE 删除数据库
-ALTER DATABASE 更改省局库的全局属性
-2.创建数据库时，有几个可选子句CREATE DATABASE [IF NOT EXISTS] d
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/《MySQL技术内幕》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
-	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -676,142 +558,37 @@ ALTER DATABASE 更改省局库的全局属性
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/11/测试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/11/测试/" itemprop="url">正式启用的第一篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T14:58:40+08:00">
-                2018-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &emsp;&emsp; 先做个自我介绍，我叫雪梨酒色的托帕石，刚听到这个名字的时候，你会感觉，哇，蛮好听的呀，哈哈哈，先谢谢啦。这个名字在我看过为数不多的书中挑出来的，这本书叫做《哑舍》，托帕石是友谊之石，但是他的解释是代表了纯真的爱情，而雪梨酒色呢大概是感觉很漂亮加的一个限定词。 &emsp;&
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/11/测试/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
       
     </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
-	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -819,6 +596,10 @@ ALTER DATABASE 更改省局库的全局属性
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1042,6 +823,10 @@ ALTER DATABASE 更改省局库的全局属性
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
