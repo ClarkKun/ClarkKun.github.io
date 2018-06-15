@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="雪梨酒色的托帕石">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="参考：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      &amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，但是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器化的DB2导入速度慢的探究">
+<meta property="og:url" content="http://yoursite.com/2018/06/15/DB2容器化导入速度慢的探究/index.html">
 <meta property="og:site_name" content="雪梨酒色的托帕石">
+<meta property="og:description" content="参考：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      &amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，但是">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-15T01:56:41.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="雪梨酒色的托帕石">
+<meta name="twitter:title" content="容器化的DB2导入速度慢的探究">
+<meta name="twitter:description" content="参考：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      &amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，但是">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/15/DB2容器化导入速度慢的探究/"/>
 
 
 
 
 
-  <title>雪梨酒色的托帕石</title>
+  <title>容器化的DB2导入速度慢的探究 | 雪梨酒色的托帕石</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/ClarkKun"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
@@ -275,9 +278,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -307,9 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/15/DB2容器化导入速度慢的探究/" itemprop="url">容器化的DB2导入速度慢的探究</a></h1>
+          <h1 class="post-title" itemprop="name headline">容器化的DB2导入速度慢的探究</h1>
         
 
         <div class="post-meta">
@@ -359,18 +360,11 @@
       
 
       
-        
-          
-          参考：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&emsp;&emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/15/DB2容器化导入速度慢的探究/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>参考：<a href="https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html</a><br>&emsp;&emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。     </p>
+<p>&emsp;&emsp;通过以上参考链接，需要安装JMeter进行测试，但是经过自己的测试后，只有图像的显示不直观，无法看出两者熟快熟慢，于是借用里面的java代码，写入数据，进行写入速度比较。</p>
+<p>&emsp;&emsp;首先，比较原有11.1版本的官方镜像和刚打的9.7镜像的读写速度，并且与在linux系统上直接安装的db2进行比较</p><br>插入三万条数据<p></p><br>&emsp;&emsp;db2 9.7镜像 运行时间 235536ms  （约3.9分钟）<p></p><br>&emsp;&emsp;db2 11.1镜像 运行时间 237352ms（ 约3.9分钟）<p></p><br>&emsp;&emsp;db2 9.7运行在linux上 运行时间 212202ms （约3.5分钟）<p></p><br>数据量较小时，发现镜像之间的读写速度大致相同，但是已经与linux上直接安装的有了明显的差距，大概半分钟，于是加大数据量到30万<p></p><br>插入30万条数据<p></p><br>&emsp;&emsp;db2 9.7镜像 运行时间 2585997ms  （约43分钟）<p></p><br>&emsp;&emsp;db2 11.1镜像 运行时间 2583923ms（ 约43分钟）<p></p><br>&emsp;&emsp;db2 9.7运行在linux上 运行时间 2404192ms （约40分钟）<p></p><p></p>
+<p>这样子看下来，镜像的插入导入速度确实要慢一些的，尤其是数据量大的时候更明显，镜像层面确实是导入慢的一个重要原因,自己推断是docker对db2不太友好，确实存在导入速度慢的情况</p>
+
       
     </div>
     
@@ -387,137 +381,15 @@
 
 	<div>
 	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
+		<div>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/03/Docker构建DB2-9-7镜像/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/03/Docker构建DB2-9-7镜像/" itemprop="url">Docker构建DB2 9.7镜像</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T15:13:59+08:00">
-                2018-06-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------本文结束
+            <i class="fa fa-paw"></i>
+            感谢您的阅读-------------
         </div>
-      </header>
     
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          概况：来实习以后干的第一件事情–迁移应用，一个以db2为数据库的web项目，之前没有接触过这个数据库，公司之前的镜像是11.1版本的免费版，这边需要9.7版本的企业版，所以开始了漫长的采坑之路，镜像的基本组成是以centos:7.2.1511镜像为基础镜像，使用docker commit方式进行构建
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/03/Docker构建DB2-9-7镜像/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
+</div>
 	
 	</div>
 	
@@ -525,145 +397,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/Containers、Docker、Kubernetes初识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/17/Containers、Docker、Kubernetes初识/" itemprop="url">Containers、Docker、Kubernetes初识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T16:11:37+08:00">
-                2018-04-17
-              </time>
+              <a href="/2018/06/03/Docker构建DB2-9-7镜像/" rel="next" title="Docker构建DB2 9.7镜像">
+                <i class="fa fa-chevron-left"></i> Docker构建DB2 9.7镜像
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          Containers–Operating System Level Virtualization存在三种部署模式：    &emsp;1.本地主机上的部署   &emsp;2.虚拟机上的部署   &emsp;3.容器层面的部署
-   &emsp;&emsp;虚拟机层面的部署和容器部署的区别：虚拟机层
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/17/Containers、Docker、Kubernetes初识/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
-	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -673,277 +428,37 @@
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/《MySQL技术内幕》/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/14/《MySQL技术内幕》/" itemprop="url">《MySQL技术内幕》__01</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T21:42:02+08:00">
-                2018-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          数据库的选择、创建、删除和更改1.USE 用于选定一个默认数据库CREATE DATABASE  创建数据库
-DRPO DATABASE 删除数据库
-ALTER DATABASE 更改省局库的全局属性
-2.创建数据库时，有几个可选子句CREATE DATABASE [IF NOT EXISTS] d
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/《MySQL技术内幕》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
       
     </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
-	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/11/测试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BruceKun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/look.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雪梨酒色的托帕石">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/11/测试/" itemprop="url">正式启用的第一篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T14:58:40+08:00">
-                2018-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &emsp;&emsp; 先做个自我介绍，我叫雪梨酒色的托帕石，刚听到这个名字的时候，你会感觉，哇，蛮好听的呀，哈哈哈，先谢谢啦。这个名字在我看过为数不多的书中挑出来的，这本书叫做《哑舍》，托帕石是友谊之石，但是他的解释是代表了纯真的爱情，而雪梨酒色呢大概是感觉很漂亮加的一个限定词。 &emsp;&
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/11/测试/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	
-	
-    
-
-    
-
-    
-
-	<div>
-	
-	</div>
-	
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -951,6 +466,10 @@ ALTER DATABASE 更改省局库的全局属性
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1184,6 +703,10 @@ ALTER DATABASE 更改省局库的全局属性
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
