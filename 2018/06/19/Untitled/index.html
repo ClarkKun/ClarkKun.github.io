@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      参考连接：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，">
+<meta name="description" content="一、镜像&amp;emsp;&amp;emsp;分层，每个镜像由一个或多个镜像层组成 &amp;emsp;&amp;emsp;通过commit的方式可以生成一个新的镜像，即在某个镜像的基础上生成新的镜像 &amp;emsp;&amp;emsp;每一层都有一个唯一ID &amp;emsp;&amp;emsp;镜像在存储和使用时共享相同镜像层，pull镜像时，已有的镜像层会跳过下载阶段 &amp;emsp;&amp;emsp;每个镜像都是只读，启动成容器，修改只会作用于最上层的容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="容器化的DB2导入速度慢的探究">
-<meta property="og:url" content="http://yoursite.com/2018/06/15/DB2容器化导入速度慢的探究/index.html">
+<meta property="og:title" content="docker镜像、容器和存储驱动">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/Untitled/index.html">
 <meta property="og:site_name" content="雪梨酒色的托帕石">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      参考连接：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，">
+<meta property="og:description" content="一、镜像&amp;emsp;&amp;emsp;分层，每个镜像由一个或多个镜像层组成 &amp;emsp;&amp;emsp;通过commit的方式可以生成一个新的镜像，即在某个镜像的基础上生成新的镜像 &amp;emsp;&amp;emsp;每一层都有一个唯一ID &amp;emsp;&amp;emsp;镜像在存储和使用时共享相同镜像层，pull镜像时，已有的镜像层会跳过下载阶段 &amp;emsp;&amp;emsp;每个镜像都是只读，启动成容器，修改只会作用于最上层的容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T02:05:11.342Z">
+<meta property="og:updated_time" content="2018-06-19T03:09:15.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="容器化的DB2导入速度慢的探究">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。      参考连接：https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html&amp;emsp;&amp;emsp;通过以上参考链接，需要安装JMeter进行测试，">
+<meta name="twitter:title" content="docker镜像、容器和存储驱动">
+<meta name="twitter:description" content="一、镜像&amp;emsp;&amp;emsp;分层，每个镜像由一个或多个镜像层组成 &amp;emsp;&amp;emsp;通过commit的方式可以生成一个新的镜像，即在某个镜像的基础上生成新的镜像 &amp;emsp;&amp;emsp;每一层都有一个唯一ID &amp;emsp;&amp;emsp;镜像在存储和使用时共享相同镜像层，pull镜像时，已有的镜像层会跳过下载阶段 &amp;emsp;&amp;emsp;每个镜像都是只读，启动成容器，修改只会作用于最上层的容">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/15/DB2容器化导入速度慢的探究/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/Untitled/"/>
 
 
 
 
 
-  <title>容器化的DB2导入速度慢的探究 | 雪梨酒色的托帕石</title>
+  <title>docker镜像、容器和存储驱动 | 雪梨酒色的托帕石</title>
   
 
 
@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/DB2容器化导入速度慢的探究/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/Untitled/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BruceKun">
@@ -310,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">容器化的DB2导入速度慢的探究</h1>
+          <h1 class="post-title" itemprop="name headline">docker镜像、容器和存储驱动</h1>
         
 
         <div class="post-meta">
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-15T09:52:00+08:00">
-                2018-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T11:05:28+08:00">
+                2018-06-19
               </time>
             
 
@@ -360,10 +360,31 @@
       
 
       
-        <p>&emsp;&emsp;通过实地测试，发现db2镜像的导入速度明显慢于原服务器的导入速度，于是进行测试，查看是否是镜像的原因。     </p>
-<p>参考连接：<a href="https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/data/library/techarticles/0303bhogal/0303bhogal.html</a></p><br>&emsp;&emsp;通过以上参考链接，需要安装JMeter进行测试，但是经过自己的测试后，只有图像的显示不直观，无法看出两者熟快熟慢，于是借用里面的java代码，写入数据，进行写入速度比较。<p></p>
-<p>&emsp;&emsp;首先，比较原有11.1版本的官方镜像和刚打的9.7镜像的读写速度，并且与在linux系统上直接安装的db2进行比较</p><br>插入三万条数据<p></p><br>&emsp;&emsp;db2 9.7镜像 运行时间 235536ms  （约3.9分钟）<p></p><br>&emsp;&emsp;db2 11.1镜像 运行时间 237352ms（ 约3.9分钟）<p></p><br>&emsp;&emsp;db2 9.7运行在linux上 运行时间 212202ms （约3.5分钟）<p></p><br>数据量较小时，发现镜像之间的读写速度大致相同，但是已经与linux上直接安装的有了明显的差距，大概半分钟，于是加大数据量到30万<p></p><br>插入30万条数据<p></p><br>&emsp;&emsp;db2 9.7镜像 运行时间 2585997ms  （约43分钟）<p></p><br>&emsp;&emsp;db2 11.1镜像 运行时间 2583923ms（ 约43分钟）<p></p><br>&emsp;&emsp;db2 9.7运行在linux上 运行时间 2404192ms （约40分钟）<p></p><p></p>
-<p>这样子看下来，镜像的插入导入速度确实要慢一些的，尤其是数据量大的时候更明显，镜像层面确实是导入慢的一个重要原因,自己推断是docker对db2不太友好，确实存在导入速度慢的情况</p>
+        <h6 id="一、镜像"><a href="#一、镜像" class="headerlink" title="一、镜像"></a>一、镜像</h6><p>&emsp;&emsp;分层，每个镜像由一个或多个镜像层组成</p>
+<p>&emsp;&emsp;通过commit的方式可以生成一个新的镜像，即在某个镜像的基础上生成新的镜像</p>
+<p>&emsp;&emsp;每一层都有一个唯一ID</p>
+<p>&emsp;&emsp;镜像在存储和使用时共享相同镜像层，pull镜像时，已有的镜像层会跳过下载阶段</p>
+<p>&emsp;&emsp;每个镜像都是只读，启动成容器，修改只会作用于最上层的容器</p>
+<h6 id="二、容器VS镜像"><a href="#二、容器VS镜像" class="headerlink" title="二、容器VS镜像"></a>二、容器VS镜像</h6><p>&emsp;&emsp;镜像+一层可读写层==&gt;镜像对应的容器的文件系统</p>
+<p>&emsp;&emsp;容器中通过commit将最上层可写层固化成镜像层，形成新镜像。新生成的镜像和旧镜像层共享底层镜像层，宿主机上多了新的镜像层</p>
+<h6 id="三、CoW（Copy-On-Write）"><a href="#三、CoW（Copy-On-Write）" class="headerlink" title="三、CoW（Copy-On-Write）"></a>三、CoW（Copy-On-Write）</h6><p>&emsp;&emsp;写时拷贝，多个程序共享同一份文件，读操作对文件无影响，当要进行写操作时，把要写的部分拷贝一份给对应程序。</p>
+<h6 id="四、docker-storage-driver"><a href="#四、docker-storage-driver" class="headerlink" title="四、docker storage driver"></a>四、docker storage driver</h6><p>&emsp;&emsp;docker将容器的一些底层运行环境进行抽象，从复杂的实现中剥离出来driver组件，让用户专注于业务相关的容器使用。<br>     driver分为三大类：</p>
+<pre><code>* exec-driver：实现对容器运行环境的隔离和资源限制
+* network-driver：容器网络相关操作
+* graph-driver：镜像存储相关操作
+</code></pre><p>镜像存储驱动，是docker的一个组件，也叫graphdriver</p>
+<p>&emsp;功能：</p>
+<p>&emsp;&emsp;&emsp;镜像的存储管理，包括从hub上pull镜像和通过dockerfile生成新镜像</p>
+<p>&emsp;&emsp;&emsp;容器启动时，为容器准备文件系统   </p>
+<h6 id="五、devicemapper"><a href="#五、devicemapper" class="headerlink" title="五、devicemapper"></a>五、devicemapper</h6><p>基于linux内核DeviceMapper框架实现，实现了物理存储设备和虚拟存储设备的映射，或者虚拟设备与虚拟设备之间的映射。</p>
+<p>用户能用该框架实现磁盘自由、动态的划分</p>
+<p>提供两个功能：</p>
+<pre><code>* thin-provisioning  类似虚拟设备，提供给使用者的空间只有在使用者进行写入操作时才真正分配。
+* snapshot 快照，一种COW策略的实现。A设备做快照后得到B设备，并非对A设备做完整拷贝，当对B设备进行写操作时，才将需要改变那部分做属于B设备的拷贝。
+</code></pre><p>devicemapper有两种模式，大致思路：先通过虚拟化技术得到一个thin-pool设备（理解为资源池），然后在thin-pool上建立一个基础设备，此后docker上所有的镜像和容器都是基于此设备的snapshot。两模式的区别在建立thin-pool的方法不同</p>
+<pre><code>loop-lvm &lt;/p&gt;
+direct-lvm
+</code></pre><p>参考：<a href="https://blog.csdn.net/a85880819/article/details/52448654" target="_blank" rel="noopener">https://blog.csdn.net/a85880819/article/details/52448654</a></p>
 
       
     </div>
@@ -404,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/03/Docker构建DB2-9-7镜像/" rel="next" title="Docker构建DB2 9.7镜像">
-                <i class="fa fa-chevron-left"></i> Docker构建DB2 9.7镜像
+              <a href="/2018/06/15/DB2容器化导入速度慢的探究/" rel="next" title="容器化的DB2导入速度慢的探究">
+                <i class="fa fa-chevron-left"></i> 容器化的DB2导入速度慢的探究
               </a>
             
           </div>
@@ -413,10 +434,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/19/Untitled/" rel="prev" title="docker镜像、容器和存储驱动">
-                docker镜像、容器和存储驱动 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -494,8 +511,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -551,6 +577,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#一、镜像"><span class="nav-number">1.</span> <span class="nav-text">一、镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二、容器VS镜像"><span class="nav-number">2.</span> <span class="nav-text">二、容器VS镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三、CoW（Copy-On-Write）"><span class="nav-number">3.</span> <span class="nav-text">三、CoW（Copy-On-Write）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四、docker-storage-driver"><span class="nav-number">4.</span> <span class="nav-text">四、docker storage driver</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#五、devicemapper"><span class="nav-number">5.</span> <span class="nav-text">五、devicemapper</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
